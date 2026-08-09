@@ -246,7 +246,7 @@ html[lang="ar"] .btn{ font-family:var(--font-body-ar); font-weight:700; font-siz
   gap:20px; padding-block:14px;
 }
 .brand{ display:flex; align-items:center; gap:12px; }
-.brand img{ width:46px; height:46px; border-radius:50%; object-fit:cover; }
+.brand img{ width:76px; height:76px; border-radius:50%; object-fit:cover; }
 .brand__text{ display:flex; flex-direction:column; line-height:1.15; }
 .brand__name{ font-family:var(--font-display-ar); font-weight:800; font-size:1.05rem; }
 .brand__sub{ font-family:inherit; font-size:.7rem; color:var(--text-dim); letter-spacing:.01em; }
@@ -638,7 +638,7 @@ html[lang="ar"] .region-filter{ font-family:var(--font-body-ar); font-size:.88re
 }
 @media(min-width:800px){ .footer-grid{ grid-template-columns:1.4fr 1fr 1fr 1fr; } }
 .footer-brand{ display:flex; align-items:center; gap:12px; margin-bottom:16px; }
-.footer-brand img{ width:46px; height:46px; border-radius:50%; }
+.footer-brand img{ width:96px; height:96px; border-radius:50%; }
 .footer-brand b{ font-family:var(--font-display-ar); font-size:1.1rem; color:#f3ead9; }
 .footer-col h4{
   font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
