@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photo & Video Gallery | Al-Hamd for Charcoal Production & Export</title>
+<meta name="description" content="Real footage from the production, packaging and shipping stages inside Al-Hamd.">
+<link rel="icon" href="../assets/images/logo/favicon.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="alternate" hreflang="ar" href="../ar/gallery.html">
+</head>
+<body>
+
+<div data-include="../partials/header-en.html"></div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Photo & Video Gallery</span>
+    <h1 class="display h1" style="font-size:clamp(2rem,4.4vw,3.4rem);">Inside Al-Hamd's facilities</h1>
+    <p class="lede mt-16" style="color:#dcd0ba;">A collection of real photos and videos documenting some of our production, packaging and shipping stages.</p>
+    <p class="breadcrumb"><a href="index.html">Home</a> / Gallery</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="gallery-filters">
+      <button class="region-filter" data-gallery-filter data-filter="all" aria-pressed="true">All</button>
+      <button class="region-filter" data-gallery-filter data-filter="raw-material" aria-pressed="false">Raw Material</button>
+      <button class="region-filter" data-gallery-filter data-filter="production" aria-pressed="false">Production</button>
+      <button class="region-filter" data-gallery-filter data-filter="packaging" aria-pressed="false">Packaging</button>
+      <button class="region-filter" data-gallery-filter data-filter="shipping" aria-pressed="false">Shipping</button>
+    </div>
+
+    <div class="gallery-grid" data-gallery-grid></div>
+    <div class="gallery-empty" data-gallery-empty style="display:none;">
+      No photos added yet — the gallery will be updated soon.
+    </div>
+
+    <p class="form-note text-center mt-32">* The photos and videos above document some of the stages of our work, with more added regularly.</p>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" data-lightbox>
+  <button class="lightbox__close" data-lightbox-close aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Previous"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Next"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+  <div>
+    <div class="lightbox__content" data-lightbox-content></div>
+    <p class="lightbox__cap" data-lightbox-cap></p>
+  </div>
+</div>
+
+<section class="section section--raised">
+  <div class="wrap">
+    <div class="cta-banner reveal">
+      <span class="eyebrow">Like what you see?</span>
+      <h2 class="display h2">Contact us for a sample or a quote</h2>
+      <div class="cta-banner__ctas">
+        <a href="https://wa.me/201010442817" target="_blank" rel="noopener" class="btn btn--primary">Chat on WhatsApp</a>
+        <a href="products.html" class="btn btn--gold">Browse Products</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-include="../partials/footer-en.html"></div>
+<a class="fab-whatsapp" data-fab-whatsapp href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+</a>
+<script src="../assets/js/gallery-data.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

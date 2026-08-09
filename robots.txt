@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alhamd4charcoal.com/sitemap.xml
