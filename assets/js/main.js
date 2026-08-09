@@ -183,66 +183,43 @@
   }
 
   function buildExportSVG(container, lang, waBase) {
-    var W = 1000, H = 500;
+    if (typeof WORLD_MAP_PATHS_SVG === "undefined") return;
+
     var svgNS = "http://www.w3.org/2000/svg";
     var svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("viewBox", WORLD_MAP_VIEWBOX);
     svg.setAttribute("class", "export-map-svg");
     svg.setAttribute("role", "img");
     svg.setAttribute("aria-label", lang === "ar" ? "خريطة أسواق التصدير" : "Export markets map");
+    svg.setAttribute("data-export-svg", "");
+    svg.innerHTML = WORLD_MAP_PATHS_SVG;
 
-    // graticule (grid) for a map-like feel
-    var grid = document.createElementNS(svgNS, "g");
-    grid.setAttribute("class", "export-map-grid");
-    for (var gx = 0; gx <= W; gx += 50) {
-      var vl = document.createElementNS(svgNS, "line");
-      vl.setAttribute("x1", gx); vl.setAttribute("y1", 0); vl.setAttribute("x2", gx); vl.setAttribute("y2", H);
-      grid.appendChild(vl);
-    }
-    for (var gy = 0; gy <= H; gy += 50) {
-      var hl = document.createElementNS(svgNS, "line");
-      hl.setAttribute("x1", 0); hl.setAttribute("y1", gy); hl.setAttribute("x2", W); hl.setAttribute("y2", gy);
-      grid.appendChild(hl);
-    }
-    svg.appendChild(grid);
-
-    var hubX = (EXPORT_HUB.x / 100) * W;
-    var hubY = (EXPORT_HUB.y / 100) * H;
+    // de-namespace ids from the source map (avoid document-wide id collisions),
+    // tag every country shape with a data-code + base "wm-country" class.
+    var byCode = {};
+    Array.prototype.slice.call(svg.children).forEach(function (el) {
+      var id = el.getAttribute("id");
+      if (!id) return;
+      el.removeAttribute("id");
+      el.setAttribute("data-code", id);
+      el.classList.add("wm-country");
+      byCode[id] = el;
+    });
 
     var routesGroup = document.createElementNS(svgNS, "g");
     routesGroup.setAttribute("class", "export-map-routes");
-    var pinsGroup = document.createElementNS(svgNS, "g");
-    pinsGroup.setAttribute("class", "export-map-pins");
+    svg.appendChild(routesGroup);
 
-    EXPORT_COUNTRIES.forEach(function (country) {
-      var dx = (country.x / 100) * W;
-      var dy = (country.y / 100) * H;
-      var mx = (hubX + dx) / 2;
-      var my = (hubY + dy) / 2 - Math.abs(dx - hubX) * 0.18 - 22;
+    var extraPinsGroup = document.createElementNS(svgNS, "g");
+    extraPinsGroup.setAttribute("class", "export-map-pins");
 
-      var path = document.createElementNS(svgNS, "path");
-      path.setAttribute("d", "M" + hubX + "," + hubY + " Q " + mx + "," + my + " " + dx + "," + dy);
-      path.setAttribute("class", "export-route");
-      path.setAttribute("data-region", country.region);
-      routesGroup.appendChild(path);
-
-      var pin = document.createElementNS(svgNS, "g");
-      pin.setAttribute("class", "export-pin");
-      pin.setAttribute("data-region", country.region);
-      pin.setAttribute("data-code", country.code);
-      pin.setAttribute("tabindex", "0");
-      pin.setAttribute("role", "button");
+    function attachInteraction(el, country) {
       var label = lang === "ar" ? country.name_ar : country.name_en;
-      pin.setAttribute("aria-label", label);
-
-      var halo = document.createElementNS(svgNS, "circle");
-      halo.setAttribute("cx", dx); halo.setAttribute("cy", dy); halo.setAttribute("r", 10);
-      halo.setAttribute("class", "export-pin__halo");
-      var dot = document.createElementNS(svgNS, "circle");
-      dot.setAttribute("cx", dx); dot.setAttribute("cy", dy); dot.setAttribute("r", 4.5);
-      dot.setAttribute("class", "export-pin__dot");
-      pin.appendChild(halo);
-      pin.appendChild(dot);
+      el.classList.add("wm-target");
+      el.setAttribute("data-region", country.region);
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("role", "button");
+      el.setAttribute("aria-label", label);
 
       var msg =
         lang === "ar"
@@ -264,37 +241,69 @@
         if (tip) tip.classList.remove("show");
       }
 
-      pin.addEventListener("mouseenter", function (e) { showTip(e.clientX, e.clientY); });
-      pin.addEventListener("mousemove", function (e) { showTip(e.clientX, e.clientY); });
-      pin.addEventListener("mouseleave", hideTip);
-      pin.addEventListener("focus", function () {
-        var rect = pin.getBoundingClientRect();
+      el.addEventListener("mouseenter", function (e) { showTip(e.clientX, e.clientY); });
+      el.addEventListener("mousemove", function (e) { showTip(e.clientX, e.clientY); });
+      el.addEventListener("mouseleave", hideTip);
+      el.addEventListener("focus", function () {
+        var rect = el.getBoundingClientRect();
         showTip(rect.left, rect.top);
       });
-      pin.addEventListener("blur", hideTip);
-      pin.addEventListener("click", function () { window.open(waUrl, "_blank"); });
-      pin.addEventListener("keydown", function (e) {
+      el.addEventListener("blur", hideTip);
+      el.addEventListener("click", function () { window.open(waUrl, "_blank"); });
+      el.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); window.open(waUrl, "_blank"); }
       });
+    }
 
-      pinsGroup.appendChild(pin);
+    EXPORT_COUNTRIES.forEach(function (country) {
+      // route line from hub to this destination
+      var mx = (EXPORT_HUB.x + country.x) / 2;
+      var my = (EXPORT_HUB.y + country.y) / 2 - Math.abs(country.x - EXPORT_HUB.x) * 0.14 - 14;
+      var path = document.createElementNS(svgNS, "path");
+      path.setAttribute("d", "M" + EXPORT_HUB.x + "," + EXPORT_HUB.y + " Q " + mx + "," + my + " " + country.x + "," + country.y);
+      path.setAttribute("class", "export-route");
+      path.setAttribute("data-region", country.region);
+      routesGroup.appendChild(path);
+
+      var mapEl = byCode[country.code];
+      if (mapEl && !country.estimated) {
+        attachInteraction(mapEl, country);
+        // small marker dot on top too, so tiny countries stay easy to spot/click
+        var dot = document.createElementNS(svgNS, "circle");
+        dot.setAttribute("cx", country.x); dot.setAttribute("cy", country.y); dot.setAttribute("r", 2.6);
+        dot.setAttribute("class", "wm-target-dot");
+        dot.setAttribute("data-region", country.region);
+        extraPinsGroup.appendChild(dot);
+      } else {
+        // not present on the base map (e.g. Bahrain, Palestine) — draw a small standalone marker
+        var g = document.createElementNS(svgNS, "g");
+        g.setAttribute("class", "export-pin");
+        var halo = document.createElementNS(svgNS, "circle");
+        halo.setAttribute("cx", country.x); halo.setAttribute("cy", country.y); halo.setAttribute("r", 7);
+        halo.setAttribute("class", "export-pin__halo");
+        var dot2 = document.createElementNS(svgNS, "circle");
+        dot2.setAttribute("cx", country.x); dot2.setAttribute("cy", country.y); dot2.setAttribute("r", 3);
+        dot2.setAttribute("class", "export-pin__dot");
+        g.appendChild(halo); g.appendChild(dot2);
+        attachInteraction(g, country);
+        extraPinsGroup.appendChild(g);
+      }
     });
 
-    svg.appendChild(routesGroup);
+    svg.appendChild(extraPinsGroup);
 
-    // hub marker (Rashid, Egypt)
+    // hub marker + label (Rashid, Egypt) — drawn in SVG space so it stays put through zoom
     var hubGroup = document.createElementNS(svgNS, "g");
     hubGroup.setAttribute("class", "export-hub");
     var hubHalo = document.createElementNS(svgNS, "circle");
-    hubHalo.setAttribute("cx", hubX); hubHalo.setAttribute("cy", hubY); hubHalo.setAttribute("r", 16);
+    hubHalo.setAttribute("cx", EXPORT_HUB.x); hubHalo.setAttribute("cy", EXPORT_HUB.y); hubHalo.setAttribute("r", 5);
     hubHalo.setAttribute("class", "export-hub__pulse");
     var hubDot = document.createElementNS(svgNS, "circle");
-    hubDot.setAttribute("cx", hubX); hubDot.setAttribute("cy", hubY); hubDot.setAttribute("r", 7);
+    hubDot.setAttribute("cx", EXPORT_HUB.x); hubDot.setAttribute("cy", EXPORT_HUB.y); hubDot.setAttribute("r", 2.6);
     hubDot.setAttribute("class", "export-hub__dot");
     hubGroup.appendChild(hubHalo);
     hubGroup.appendChild(hubDot);
     svg.appendChild(hubGroup);
-    svg.appendChild(pinsGroup);
 
     container.appendChild(svg);
 
@@ -303,12 +312,34 @@
     tooltip.className = "export-map-tooltip";
     container.appendChild(tooltip);
 
-    var hubLabel = document.createElement("div");
-    hubLabel.className = "export-hub-label";
-    hubLabel.style.left = EXPORT_HUB.x + "%";
-    hubLabel.style.top = EXPORT_HUB.y + "%";
-    hubLabel.textContent = lang === "ar" ? "الحمد · رشيد" : "Al-Hamd · Rashid";
-    container.appendChild(hubLabel);
+    // credit line for the base map artwork (CC BY-SA 3.0 requires attribution)
+    var credit = document.createElement("a");
+    credit.className = "export-map-credit";
+    credit.href = "https://github.com/flekschas/simple-world-map";
+    credit.target = "_blank"; credit.rel = "noopener";
+    credit.textContent = lang === "ar" ? "خريطة: Al MacDonald / F. Lekschas (CC BY-SA 3.0)" : "Map: Al MacDonald / F. Lekschas (CC BY-SA 3.0)";
+    container.appendChild(credit);
+  }
+
+  function regionViewBox(regionKey) {
+    if (regionKey === "all") return WORLD_MAP_VIEWBOX;
+    var list = EXPORT_COUNTRIES.filter(function (c) { return c.region === regionKey; }).concat([EXPORT_HUB]);
+    var xs = list.map(function (c) { return c.x; });
+    var ys = list.map(function (c) { return c.y; });
+    var minX = Math.min.apply(null, xs), maxX = Math.max.apply(null, xs);
+    var minY = Math.min.apply(null, ys), maxY = Math.max.apply(null, ys);
+    var padX = Math.max((maxX - minX) * 0.45, 30);
+    var padY = Math.max((maxY - minY) * 0.45, 30);
+    minX -= padX; maxX += padX; minY -= padY; maxY += padY;
+    var w = maxX - minX, h = maxY - minY, ratio = 2;
+    if (w / h > ratio) {
+      var nh = w / ratio, cy = (minY + maxY) / 2;
+      minY = cy - nh / 2; maxY = cy + nh / 2; h = nh;
+    } else {
+      var nw = h * ratio, cx = (minX + maxX) / 2;
+      minX = cx - nw / 2; maxX = cx + nw / 2; w = nw;
+    }
+    return minX + " " + minY + " " + w + " " + h;
   }
 
   function initExportMap() {
@@ -328,16 +359,21 @@
       gridContainer.appendChild(frag);
     }
 
-    // unified region filter — drives the SVG pins/routes AND the cards together
+    // unified region filter — zooms the map to the region AND filters the cards
     var filters = document.querySelectorAll("[data-region-filter]");
     filters.forEach(function (f) {
       f.addEventListener("click", function () {
         filters.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
         f.setAttribute("aria-pressed", "true");
         var val = f.getAttribute("data-filter");
-        document.querySelectorAll(".export-pin, .export-route").forEach(function (el) {
+
+        var svg = document.querySelector("[data-export-svg]");
+        if (svg && typeof regionViewBox === "function") {
+          svg.setAttribute("viewBox", regionViewBox(val));
+        }
+        document.querySelectorAll(".wm-country.wm-target, .wm-target-dot, .export-pin, .export-route").forEach(function (el) {
           var match = val === "all" || el.getAttribute("data-region") === val;
-          el.style.opacity = match ? "" : "0.08";
+          el.style.opacity = match ? "" : "0.1";
           el.style.pointerEvents = match ? "" : "none";
         });
         document.querySelectorAll("[data-country-grid] .country-tag").forEach(function (el) {

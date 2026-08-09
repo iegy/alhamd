@@ -331,9 +331,9 @@ html[lang="ar"] .nav-desktop a{ font-family:var(--font-body-ar); font-size:.95re
   content:"";
   position:absolute; inset:0;
   background:
-    linear-gradient(180deg, rgba(6,5,4,.5) 0%, rgba(6,5,4,.68) 55%, rgba(6,5,4,.95) 100%),
-    linear-gradient(90deg, rgba(6,5,4,.92) 0%, rgba(6,5,4,.45) 48%, rgba(6,5,4,.55) 100%),
-    radial-gradient(ellipse at 82% 70%, rgba(232,89,12,.16), transparent 60%);
+    linear-gradient(180deg, rgba(6,5,4,.32) 0%, rgba(6,5,4,.48) 55%, rgba(6,5,4,.82) 100%),
+    linear-gradient(90deg, rgba(6,5,4,.72) 0%, rgba(6,5,4,.28) 48%, rgba(6,5,4,.38) 100%),
+    radial-gradient(ellipse at 82% 70%, rgba(232,89,12,.18), transparent 60%);
 }
 .hero__inner{ position:relative; z-index:2; padding-block:120px 90px; }
 .hero__tag{
@@ -684,18 +684,21 @@ html[lang="ar"] .footer-col h4{ font-family:var(--font-body-ar); font-size:.95re
   background:var(--char-950); color:#f3ead9; position:relative; overflow:hidden;
 }
 .page-hero::after{
-  content:""; position:absolute; inset:0;
+  content:""; position:absolute; inset:0; z-index:1;
   background:radial-gradient(circle at 85% 0%, rgba(232,89,12,.16), transparent 55%);
 }
-.page-hero--map{
-  background:var(--char-950);
+.page-hero__bg{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+  opacity:.5;
 }
-.page-hero--map .page-hero__bg{
-  position:absolute; inset:0; background-size:cover; background-position:left center;
-  opacity:.55;
-}
-.page-hero--map .page-hero__bg::after{
+.page-hero__bg::after{
   content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(6,5,4,.55) 0%, rgba(6,5,4,.7) 60%, rgba(6,5,4,.95) 100%),
+    linear-gradient(90deg, rgba(6,5,4,.85) 0%, rgba(6,5,4,.35) 50%, rgba(6,5,4,.5) 100%);
+}
+.page-hero--map .page-hero__bg{ background-position:left center; opacity:.55; }
+.page-hero--map .page-hero__bg::after{
   background:linear-gradient(90deg, rgba(6,5,4,.96) 0%, rgba(6,5,4,.55) 60%, rgba(6,5,4,.85) 100%);
 }
 .page-hero .wrap{ position:relative; z-index:2; }
@@ -712,35 +715,47 @@ html[lang="ar"] .footer-col h4{ font-family:var(--font-body-ar); font-size:.95re
 }
 [data-theme="light"] .export-map-wrap{ background: radial-gradient(circle at 30% 20%, rgba(232,89,12,.06), transparent 55%), #1c1712; }
 .export-map-visual{ position:relative; width:100%; aspect-ratio:2/1; }
-.export-map-svg{ width:100%; height:100%; display:block; }
-.export-map-grid line{ stroke:#f3ead9; stroke-opacity:.05; stroke-width:1; }
-.export-route{
-  fill:none; stroke:var(--gold-400); stroke-width:1.1; stroke-opacity:.4;
-  stroke-dasharray:3 4; transition:opacity .3s var(--ease);
-  animation:export-route-flow 12s linear infinite;
+.export-map-svg{ width:100%; height:100%; display:block; transition:none; }
+
+/* base landmass styling for the real world map (every country) */
+.export-map-svg .wm-country{ fill:#4a4038; stroke:#6b5d4f; stroke-width:.6; opacity:.55; transition:fill .3s, opacity .3s; }
+[data-theme="light"] .export-map-svg .wm-country{ fill:#3a3128; stroke:#54473a; }
+
+/* our 19 export destinations — highlighted + interactive */
+.export-map-svg .wm-target{
+  fill:var(--gold-500); stroke:var(--gold-300); stroke-width:.7; opacity:.85;
+  cursor:pointer; transition:fill .2s, opacity .3s;
 }
-@keyframes export-route-flow{ to{ stroke-dashoffset:-140; } }
+[data-theme="light"] .export-map-svg .wm-target{ fill:var(--gold-500); stroke:var(--gold-300); }
+.export-map-svg .wm-target:hover, .export-map-svg .wm-target:focus{ fill:var(--ember-400); outline:none; }
+[data-theme="light"] .export-map-svg .wm-target:hover, [data-theme="light"] .export-map-svg .wm-target:focus{ fill:var(--ember-400); }
+.wm-target-dot{ fill:var(--gold-300); opacity:.9; pointer-events:none; transition:opacity .3s; }
+
+.export-route{
+  fill:none; stroke:var(--gold-400); stroke-width:.9; stroke-opacity:.45;
+  stroke-dasharray:2.4 3; transition:opacity .3s var(--ease);
+  animation:export-route-flow 12s linear infinite;
+  vector-effect:non-scaling-stroke;
+}
+@keyframes export-route-flow{ to{ stroke-dashoffset:-90; } }
 .export-hub__pulse{
-  fill:none; stroke:var(--ember-500); stroke-width:2; opacity:.6;
+  fill:none; stroke:var(--ember-500); stroke-width:1; opacity:.7;
   transform-origin:center; transform-box:fill-box;
   animation:export-hub-pulse 2.4s ease-out infinite;
+  vector-effect:non-scaling-stroke;
 }
 @keyframes export-hub-pulse{
-  0%{ transform:scale(.5); opacity:.7; }
-  100%{ transform:scale(2.6); opacity:0; }
+  0%{ transform:scale(.6); opacity:.8; }
+  100%{ transform:scale(3.2); opacity:0; }
 }
-.export-hub__dot{ fill:var(--ember-500); stroke:#fff7ee; stroke-width:1.5; }
-.export-hub-label{
-  position:absolute; transform:translate(14px, -50%);
-  font-family:var(--font-mono); font-size:.62rem; letter-spacing:.06em;
-  color:var(--gold-300); white-space:nowrap; pointer-events:none;
-  background:rgba(10,8,7,.55); padding:3px 8px; border-radius:100px; border:1px solid rgba(233,210,135,.25);
-}
+.export-hub__dot{ fill:var(--ember-500); stroke:#fff7ee; stroke-width:.6; vector-effect:non-scaling-stroke; }
+
+/* standalone markers for countries not present on the base map (Bahrain, Palestine) */
 .export-pin{ cursor:pointer; transition:opacity .3s var(--ease); }
-.export-pin__halo{ fill:var(--gold-500); opacity:.16; transition:r .25s var(--ease), opacity .25s var(--ease); }
-.export-pin__dot{ fill:var(--gold-400); stroke:var(--char-950); stroke-width:1.2; transition:fill .2s; }
-.export-pin:hover .export-pin__halo, .export-pin:focus .export-pin__halo{ r:15; opacity:.3; }
+.export-pin__halo{ fill:var(--gold-500); opacity:.2; vector-effect:non-scaling-stroke; }
+.export-pin__dot{ fill:var(--gold-300); stroke:var(--char-950); stroke-width:.5; vector-effect:non-scaling-stroke; }
 .export-pin:hover .export-pin__dot, .export-pin:focus .export-pin__dot{ fill:var(--ember-400); }
+
 .export-map-tooltip{
   position:absolute; z-index:20; transform:translate(-50%, -135%);
   background:var(--char-950); color:#f3ead9; border:1px solid var(--gold-500);
@@ -750,6 +765,12 @@ html[lang="ar"] .footer-col h4{ font-family:var(--font-body-ar); font-size:.95re
 }
 .export-map-tooltip .fi{ border-radius:2px; box-shadow:0 0 0 1px rgba(255,255,255,.2); }
 .export-map-tooltip.show{ opacity:1; }
+.export-map-credit{
+  position:absolute; bottom:6px; inset-inline-end:10px;
+  font-family:var(--font-mono); font-size:.6rem; color:var(--text-dim);
+  opacity:.6; text-decoration:none;
+}
+.export-map-credit:hover{ opacity:1; color:var(--gold-300); }
 .export-map-legend{
   display:flex; flex-wrap:wrap; gap:18px; padding:14px 20px;
   border-top:1px solid var(--border); font-size:.78rem; color:var(--text-dim);
