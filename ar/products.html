@@ -11,7 +11,63 @@
 </head>
 <body>
 
-<div data-include="../partials/header-ar.html"></div>
+<header class="site-header">
+  <div class="wrap site-header__bar">
+    <a href="index.html" class="brand">
+      <img src="../assets/images/logo/logo-nav.png" alt="الحمد لإنتاج وتصدير الفحم النباتي">
+      <span class="brand__text">
+        <span class="brand__name">الحمد</span>
+        <span class="brand__sub">Charcoal · Est. Legacy</span>
+      </span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="التنقل الرئيسي">
+      <ul>
+        <li><a href="index.html" data-nav-link>الرئيسية</a></li>
+        <li><a href="about.html" data-nav-link>من نحن</a></li>
+        <li><a href="products.html" data-nav-link>منتجاتنا</a></li>
+        <li><a href="export-map.html" data-nav-link>أسواق التصدير</a></li>
+        <li><a href="gallery.html" data-nav-link>معرض الصور</a></li>
+        <li><a href="contact.html" data-nav-link>تواصل معنا</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-btn" data-lang-switch href="#" title="English" aria-label="Switch to English">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-6-4-9s1.5-6.4 4-9z"/></svg>
+      </a>
+      <button class="icon-btn" data-theme-toggle type="button" aria-label="تبديل الوضع الليلي/النهاري">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+      </button>
+      <a class="icon-btn" href="https://wa.me/201010442817" target="_blank" rel="noopener" aria-label="واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.3-.4.1-.2 0-.3 0-.5 0-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2 0 1.3.9 2.6 1.1 2.8.1.2 1.8 2.8 4.5 3.8.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+      </a>
+      <button class="menu-toggle" data-menu-toggle type="button" aria-label="فتح القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" data-mobile-nav>
+  <div class="mobile-nav__top">
+    <a href="index.html" class="brand">
+      <img src="../assets/images/logo/logo-nav.png" alt="الحمد">
+      <span class="brand__name">الحمد</span>
+    </a>
+    <button class="icon-btn" data-menu-close type="button" aria-label="إغلاق القائمة">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <a href="index.html">الرئيسية</a>
+  <a href="about.html">من نحن</a>
+  <a href="products.html">منتجاتنا</a>
+  <a href="export-map.html">أسواق التصدير</a>
+  <a href="gallery.html">معرض الصور</a>
+  <a href="contact.html">تواصل معنا</a>
+  <a class="btn btn--primary mobile-nav__cta" href="https://wa.me/201010442817" target="_blank" rel="noopener">تواصل عبر واتساب</a>
+</div>
 
 <section class="page-hero">
   <div class="wrap">
@@ -220,7 +276,61 @@
   </div>
 </section>
 
-<div data-include="../partials/footer-ar.html"></div>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="footer-brand">
+        <img src="../assets/images/logo/logo-nav.png" alt="الحمد">
+        <b>الحمد لإنتاج وتصدير الفحم النباتي</b>
+      </a>
+      <p style="color:#a89a80; font-size:.92rem; max-width:34ch;">
+        أكثر من 30 عاماً من الخبرة في إنتاج وتصدير أجود أنواع الفحم النباتي والفحم الأفريقي الفاخر إلى الأسواق العالمية.
+      </p>
+
+      <!-- 👇 عدّل الروابط دي براحتك بأي وقت — هي كل حاجة السوشيال ميديا في الموقع -->
+      <div class="footer-social">
+        <a href="#" target="_blank" rel="noopener" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5H16l.4-3H13.5V8.4c0-.9.3-1.5 1.6-1.5H16.5V4.3C16.2 4.3 15.2 4.2 14 4.2c-2.4 0-4 1.4-4 4v2.3H7.5v3H10V21h3.5z"/></svg></a>
+        <a href="#" target="_blank" rel="noopener" aria-label="انستجرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+        <a href="#" target="_blank" rel="noopener" aria-label="تيك توك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 3c.4 2 1.9 3.5 4 3.8v2.6c-1.5 0-2.9-.4-4-1.2v6.3c0 3-2.5 5.4-5.5 5.4A5.5 5.5 0 0 1 3 14.4a5.5 5.5 0 0 1 7-5.3V11.7a2.9 2.9 0 0 0-1.5-.4 3 3 0 1 0 3 3V3H14z"/></svg></a>
+        <a href="#" target="_blank" rel="noopener" aria-label="يوتيوب"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12s0-3.2-.4-4.6a2.8 2.8 0 0 0-2-2C17.9 5 12 5 12 5s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2C2 8.8 2 12 2 12s0 3.2.4 4.6c.3 1 1 1.7 2 2C6.1 19 12 19 12 19s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2C22 15.2 22 12 22 12zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a>
+        <a href="https://wa.me/201010442817" target="_blank" rel="noopener" aria-label="واتساب"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="about.html">من نحن</a></li>
+        <li><a href="products.html">منتجاتنا</a></li>
+        <li><a href="export-map.html">أسواق التصدير</a></li>
+        <li><a href="gallery.html">معرض الصور</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>تواصل معنا</h4>
+      <ul>
+        <li><a href="tel:+201010442817" dir="ltr" style="display:inline-block">+20 10 10442817</a></li>
+        <li><a href="mailto:fhmalhmd@gmail.com">fhmalhmd@gmail.com</a></li>
+        <li><a href="https://wa.me/201010442817" target="_blank" rel="noopener">واتساب مباشر</a></li>
+        <li><span>رشيد، محافظة البحيرة، مصر</span></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>ساعات العمل</h4>
+      <ul>
+        <li><span>نستقبل طلباتكم واستفساراتكم على مدار الساعة، طوال أيام الأسبوع.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <span>© <span data-year></span> الحمد لإنتاج وتصدير الفحم النباتي. جميع الحقوق محفوظة.</span>
+    <span>© 2026 Mohammed Hussein · <a href="https://iegy.net" target="_blank" rel="noopener">iegy.net</a></span>
+  </div>
+</footer>
 <a class="fab-whatsapp" data-fab-whatsapp href="#" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
 </a>

@@ -25,28 +25,6 @@
     });
   }
 
-  /* ---------------- PARTIALS (header / footer include) ---------------- */
-  function loadPartials(done) {
-    var slots = document.querySelectorAll("[data-include]");
-    if (!slots.length) { done(); return; }
-    var pending = slots.length;
-    slots.forEach(function (el) {
-      var url = el.getAttribute("data-include");
-      fetch(url)
-        .then(function (r) { return r.text(); })
-        .then(function (html) {
-          el.outerHTML = html;
-        })
-        .catch(function () {
-          el.innerHTML = "";
-        })
-        .finally(function () {
-          pending--;
-          if (pending === 0) done();
-        });
-    });
-  }
-
   /* ---------------- MOBILE NAV ---------------- */
   function initMobileNav() {
     var toggle = document.querySelector("[data-menu-toggle]");
@@ -376,15 +354,14 @@
 
   /* ---------------- INIT ---------------- */
   document.addEventListener("DOMContentLoaded", function () {
+    // Header/footer are inlined directly in every page (no fetch/include step),
+    // so they work identically whether opened via file://, a local server, or live online.
     initTheme();
-    loadPartials(function () {
-      initMobileNav();
-      markActiveNav();
-      initTheme(); // re-bind toggle button injected via partial
-      initFabWhatsapp();
-      initLangSwitch();
-      initYear();
-    });
+    initMobileNav();
+    markActiveNav();
+    initFabWhatsapp();
+    initLangSwitch();
+    initYear();
     initReveal();
     initCounters();
     initAccordion();
