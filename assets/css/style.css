@@ -249,7 +249,7 @@ html[lang="ar"] .btn{ font-family:var(--font-body-ar); font-weight:700; font-siz
 .brand img{ width:46px; height:46px; border-radius:50%; object-fit:cover; }
 .brand__text{ display:flex; flex-direction:column; line-height:1.15; }
 .brand__name{ font-family:var(--font-display-ar); font-weight:800; font-size:1.05rem; }
-.brand__sub{ font-family:var(--font-mono); font-size:.6rem; letter-spacing:.16em; color:var(--text-dim); text-transform:uppercase; }
+.brand__sub{ font-family:inherit; font-size:.7rem; color:var(--text-dim); letter-spacing:.01em; }
 
 .nav-desktop{ display:none; }
 .nav-desktop ul{ display:flex; align-items:center; gap:30px; }
@@ -701,6 +701,61 @@ html[lang="ar"] .footer-col h4{ font-family:var(--font-body-ar); font-size:.95re
 .page-hero .wrap{ position:relative; z-index:2; }
 .breadcrumb{ font-family:var(--font-mono); font-size:.72rem; color:var(--text-dim); letter-spacing:.06em; margin-top:16px; }
 .breadcrumb a{ color:var(--gold-300); }
+
+/* ---------------- Export interactive route-map ---------------- */
+.export-map-wrap{
+  position:relative; border:1px solid var(--border); border-radius:var(--radius-lg);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(232,89,12,.08), transparent 55%),
+    var(--char-950);
+  overflow:hidden; margin-bottom:40px;
+}
+[data-theme="light"] .export-map-wrap{ background: radial-gradient(circle at 30% 20%, rgba(232,89,12,.06), transparent 55%), #1c1712; }
+.export-map-visual{ position:relative; width:100%; aspect-ratio:2/1; }
+.export-map-svg{ width:100%; height:100%; display:block; }
+.export-map-grid line{ stroke:#f3ead9; stroke-opacity:.05; stroke-width:1; }
+.export-route{
+  fill:none; stroke:var(--gold-400); stroke-width:1.1; stroke-opacity:.4;
+  stroke-dasharray:3 4; transition:opacity .3s var(--ease);
+  animation:export-route-flow 12s linear infinite;
+}
+@keyframes export-route-flow{ to{ stroke-dashoffset:-140; } }
+.export-hub__pulse{
+  fill:none; stroke:var(--ember-500); stroke-width:2; opacity:.6;
+  transform-origin:center; transform-box:fill-box;
+  animation:export-hub-pulse 2.4s ease-out infinite;
+}
+@keyframes export-hub-pulse{
+  0%{ transform:scale(.5); opacity:.7; }
+  100%{ transform:scale(2.6); opacity:0; }
+}
+.export-hub__dot{ fill:var(--ember-500); stroke:#fff7ee; stroke-width:1.5; }
+.export-hub-label{
+  position:absolute; transform:translate(14px, -50%);
+  font-family:var(--font-mono); font-size:.62rem; letter-spacing:.06em;
+  color:var(--gold-300); white-space:nowrap; pointer-events:none;
+  background:rgba(10,8,7,.55); padding:3px 8px; border-radius:100px; border:1px solid rgba(233,210,135,.25);
+}
+.export-pin{ cursor:pointer; transition:opacity .3s var(--ease); }
+.export-pin__halo{ fill:var(--gold-500); opacity:.16; transition:r .25s var(--ease), opacity .25s var(--ease); }
+.export-pin__dot{ fill:var(--gold-400); stroke:var(--char-950); stroke-width:1.2; transition:fill .2s; }
+.export-pin:hover .export-pin__halo, .export-pin:focus .export-pin__halo{ r:15; opacity:.3; }
+.export-pin:hover .export-pin__dot, .export-pin:focus .export-pin__dot{ fill:var(--ember-400); }
+.export-map-tooltip{
+  position:absolute; z-index:20; transform:translate(-50%, -135%);
+  background:var(--char-950); color:#f3ead9; border:1px solid var(--gold-500);
+  padding:6px 12px; border-radius:100px; font-size:.8rem; font-weight:600;
+  white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .15s;
+  display:flex; align-items:center; gap:6px;
+}
+.export-map-tooltip .fi{ border-radius:2px; box-shadow:0 0 0 1px rgba(255,255,255,.2); }
+.export-map-tooltip.show{ opacity:1; }
+.export-map-legend{
+  display:flex; flex-wrap:wrap; gap:18px; padding:14px 20px;
+  border-top:1px solid var(--border); font-size:.78rem; color:var(--text-dim);
+}
+.export-map-legend span{ display:inline-flex; align-items:center; gap:8px; }
+.export-map-legend i{ width:10px; height:10px; border-radius:50%; display:inline-block; }
 
 /* ---------- Utility ---------- */
 .mt-8{ margin-top:8px;} .mt-16{margin-top:16px;} .mt-24{margin-top:24px;} .mt-32{margin-top:32px;} .mt-48{margin-top:48px;}

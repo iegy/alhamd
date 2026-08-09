@@ -18,7 +18,7 @@
       <img src="../assets/images/logo/logo-nav.png" alt="الحمد لإنتاج وتصدير الفحم النباتي">
       <span class="brand__text">
         <span class="brand__name">الحمد</span>
-        <span class="brand__sub">Charcoal · Est. Legacy</span>
+        <span class="brand__sub">لإنتاج وتصدير الفحم النباتي</span>
       </span>
     </a>
 
@@ -310,15 +310,12 @@
       <h2 class="display h2">نصدّر إلى أكثر من 19 دولة</h2>
       <p class="lede">من الخليج إلى أوروبا والأمريكتين — فحم الحمد يصل إلى أسواق متنوعة حول العالم.</p>
     </div>
-    <div class="country-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))">
-      <div class="country-tag reveal"><span class="country-tag__flag"><span class="fi fi-sa"></span></span><span class="country-tag__name">السعودية</span></div>
-      <div class="country-tag reveal"><span class="country-tag__flag"><span class="fi fi-ae"></span></span><span class="country-tag__name">الإمارات</span></div>
-      <div class="country-tag reveal"><span class="country-tag__flag"><span class="fi fi-kw"></span></span><span class="country-tag__name">الكويت</span></div>
-      <div class="country-tag reveal"><span class="country-tag__flag"><span class="fi fi-qa"></span></span><span class="country-tag__name">قطر</span></div>
-      <div class="country-tag reveal"><span class="country-tag__flag"><span class="fi fi-tr"></span></span><span class="country-tag__name">تركيا</span></div>
-      <div class="country-tag reveal"><span class="country-tag__flag"><span class="fi fi-it"></span></span><span class="country-tag__name">إيطاليا</span></div>
-      <div class="country-tag reveal"><span class="country-tag__flag"><span class="fi fi-us"></span></span><span class="country-tag__name">أمريكا</span></div>
-      <div class="country-tag reveal"><span class="country-tag__flag"><span class="fi fi-ca"></span></span><span class="country-tag__name">كندا</span></div>
+    <div class="export-map-wrap reveal">
+      <div class="export-map-visual" data-export-map></div>
+      <div class="export-map-legend">
+        <span><i style="background:var(--ember-500)"></i> رشيد، مصر — نقطة الانطلاق</span>
+        <span><i style="background:var(--gold-400)"></i> مرّر أو اضغط على أي دولة لعرض التفاصيل</span>
+      </div>
     </div>
     <div class="text-center mt-48">
       <a href="export-map.html" class="btn btn--ghost">عرض كل الدول ←</a>
@@ -401,6 +398,7 @@
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
 </a>
 
+<script src="../assets/js/export-data.js"></script>
 <script src="../assets/js/main.js"></script>
 </body>
 </html>
