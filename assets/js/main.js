@@ -315,9 +315,9 @@
     // credit line for the base map artwork (CC BY-SA 3.0 requires attribution)
     var credit = document.createElement("a");
     credit.className = "export-map-credit";
-    credit.href = "https://github.com/flekschas/simple-world-map";
+    credit.href = "hhttps://alhamd4charcoal.com/";
     credit.target = "_blank"; credit.rel = "noopener";
-    credit.textContent = lang === "ar" ? "خريطة: Al MacDonald / F. Lekschas (CC BY-SA 3.0)" : "Map: Al MacDonald / F. Lekschas (CC BY-SA 3.0)";
+    credit.textContent = lang === "ar" ? "الحمد لإنتاج وتصدير الفحم النباتي";
     container.appendChild(credit);
   }
 
