@@ -315,7 +315,7 @@
     // credit line for the base map artwork (CC BY-SA 3.0 requires attribution)
     var credit = document.createElement("a");
     credit.className = "export-map-credit";
-    credit.href = "hhttps://alhamd4charcoal.com/";
+    credit.href = "https://alhamd4charcoal.com/";
     credit.target = "_blank"; credit.rel = "noopener";
     credit.textContent = lang === "ar" ? "الحمد لإنتاج وتصدير الفحم النباتي";
     container.appendChild(credit);
